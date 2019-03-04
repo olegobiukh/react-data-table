@@ -17,6 +17,12 @@ class App extends Component {
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      filtered: nextProps.items
+    });
+  }
+
   handleFilter(value) {
     const { phones } = this.state;
     let filteredPhones = [];
@@ -25,9 +31,15 @@ class App extends Component {
       filteredPhones = phones.sort((a, b) => {
         return a.age - b.age;
       });
-    } else {
+    } else if (value === "name") {
       filteredPhones = phones.sort((a, b) => a.name.localeCompare(b.name));
+    } else {
+      filteredPhones = phones.filter(phone => {
+        const name = phone.name.toLowerCase();
+        return name.includes(value);
+      });
     }
+
     this.setState({
       phones: filteredPhones
     });
@@ -40,8 +52,15 @@ class App extends Component {
   }
 
   renderData(phones) {
-    if (phones && phones.length) {
-      return (
+    return (
+      <>
+        <input
+          type="text"
+          onChange={event => {
+            this.handleFilter(event.target.value);
+          }}
+          defaultChecked
+        />
         <table>
           <thead>
             <tr>
@@ -51,23 +70,28 @@ class App extends Component {
               <th className="Filter" onClick={() => this.handleFilter("age")}>
                 <span className="Filter">age</span>
               </th>
+
               <th>snippet</th>
             </tr>
           </thead>
           <tbody>
-            {phones.map(item => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>{item.age}</td>
-                <td>{item.snippet}</td>
+            {phones && phones.length ? (
+              phones.map(item => (
+                <tr key={item.id}>
+                  <td>{item.name}</td>
+                  <td>{item.age}</td>
+                  <td>{item.snippet}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td>No items found</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
-      );
-    } else {
-      return <div>No items found</div>;
-    }
+      </>
+    );
   }
   renderLoading() {
     return <div>Loading...</div>;
