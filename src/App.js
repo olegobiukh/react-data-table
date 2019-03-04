@@ -11,8 +11,25 @@ class App extends Component {
   async componentDidMount() {
     const response = await fetch(url);
     const data = await response.json();
+
     this.setState({
       phones: data
+    });
+  }
+
+  handleFilter(value) {
+    const { phones } = this.state;
+    let filteredPhones = [];
+
+    if (value === "age") {
+      filteredPhones = phones.sort((a, b) => {
+        return a.age - b.age;
+      });
+    } else {
+      filteredPhones = phones.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    this.setState({
+      phones: filteredPhones
     });
   }
 
@@ -23,14 +40,17 @@ class App extends Component {
   }
 
   renderData(phones) {
-    // console.log(this.state.phones);
     if (phones && phones.length) {
       return (
         <table>
           <thead>
             <tr>
-              <th>name</th>
-              <th>age</th>
+              <th onClick={() => this.handleFilter("name")}>
+                <span className="Filter">name</span>
+              </th>
+              <th className="Filter" onClick={() => this.handleFilter("age")}>
+                <span className="Filter">age</span>
+              </th>
               <th>snippet</th>
             </tr>
           </thead>
