@@ -17,12 +17,6 @@ class App extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      filtered: nextProps.items
-    });
-  }
-
   handleFilter(value) {
     const { phones } = this.state;
     let filteredPhones = [];
