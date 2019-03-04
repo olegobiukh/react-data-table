@@ -1,1 +1,0 @@
-# react-data-table
