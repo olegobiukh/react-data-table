@@ -5,7 +5,8 @@ const url =
 
 class App extends Component {
   state = {
-    phones: []
+    phones: [],
+    filteredItems: []
   };
 
   async componentDidMount() {
@@ -35,17 +36,20 @@ class App extends Component {
     }
 
     this.setState({
-      phones: filteredPhones
+      filteredItems: filteredPhones
     });
   }
 
   render() {
-    const { phones } = this.state;
+    const { phones, filteredItems } = this.state;
 
-    return phones ? this.renderData(phones) : this.renderLoading();
+    return phones
+      ? this.renderData(phones, filteredItems)
+      : this.renderLoading();
   }
 
-  renderData(phones) {
+  renderData(phones, filteredItems) {
+    phones = filteredItems.length !== 0 ? filteredItems : phones;
     return (
       <>
         <input
