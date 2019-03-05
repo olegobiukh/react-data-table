@@ -6,7 +6,8 @@ const url =
 class App extends Component {
   state = {
     phones: [],
-    filteredItems: []
+    filteredItems: [],
+    isQuery: ""
   };
 
   async componentDidMount() {
@@ -18,25 +19,32 @@ class App extends Component {
     });
   }
 
-  handleFilter(value) {
-    const { phones } = this.state;
+  handleFilter(value, query) {
+    let { isQuery, phones } = this.state;
+
     let filteredPhones = [];
 
-    if (value === "age") {
-      filteredPhones = phones.sort((a, b) => {
-        return a.age - b.age;
-      });
-    } else if (value === "name") {
-      filteredPhones = phones.sort((a, b) => a.name.localeCompare(b.name));
-    } else {
+    isQuery = !query ? isQuery : query;
+
+    if (isQuery) {
       filteredPhones = phones.filter(phone => {
-        const name = phone.name.toLowerCase();
-        return name.includes(value);
+        return phone.name.toLowerCase().includes(isQuery);
       });
     }
 
+    const phonesArr = isQuery !== "" ? filteredPhones : phones;
+
+    if (value === "age") {
+      filteredPhones = phonesArr.sort((a, b) => {
+        return a.age - b.age;
+      });
+    } else if (value === "name") {
+      filteredPhones = phonesArr.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
     this.setState({
-      filteredItems: filteredPhones
+      filteredItems: filteredPhones,
+      isQuery
     });
   }
 
@@ -55,7 +63,7 @@ class App extends Component {
         <input
           type="text"
           onChange={event => {
-            this.handleFilter(event.target.value);
+            this.handleFilter("query", event.target.value);
           }}
           defaultChecked
         />
