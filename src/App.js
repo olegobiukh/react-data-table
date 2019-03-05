@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   handleFilter(value, query) {
-    let { isQuery, phones } = this.state;
+    let { isQuery, phones, filteredItems } = this.state;
 
     let filteredPhones = [];
 
@@ -49,24 +49,28 @@ class App extends Component {
   }
 
   render() {
-    const { phones, filteredItems } = this.state;
+    const { phones, filteredItems, isQuery } = this.state;
 
     return phones
-      ? this.renderData(phones, filteredItems)
+      ? this.renderData(phones, filteredItems, isQuery)
       : this.renderLoading();
   }
 
-  renderData(phones, filteredItems) {
-    phones = filteredItems.length !== 0 ? filteredItems : phones;
+  renderData(phones, filteredItems, isQuery) {
+    console.log(isQuery);
+    phones = isQuery || filteredItems.length ? filteredItems : phones;
     return (
       <>
-        <input
-          type="text"
-          onChange={event => {
-            this.handleFilter("query", event.target.value);
-          }}
-          defaultChecked
-        />
+        <div className="clearfix">
+          <input
+            className="Query"
+            type="text"
+            onChange={event => {
+              this.handleFilter("query", event.target.value);
+            }}
+            defaultChecked
+          />
+        </div>
         <table>
           <thead>
             <tr>
