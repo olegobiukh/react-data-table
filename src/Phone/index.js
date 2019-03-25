@@ -45,8 +45,6 @@ class Phone extends Component {
     if (data) {
       return (
         <div className="Details float-right">
-          <img src={"../" + images[0]} alt={name} />
-
           <p>
             <span className="Details__title">Name:</span> {name}
           </p>
@@ -70,7 +68,7 @@ class Phone extends Component {
         </div>
       );
     } else {
-      return <div>Pick a phone</div>;
+      return <div>The phone is loading ...</div>;
     }
   }
 }
