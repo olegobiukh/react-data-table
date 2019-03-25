@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/react-data-table/static/js/runtime~main.39398cdc.js"
   },
   {
-    "revision": "718fc69b4f21b6ad066a",
-    "url": "/react-data-table/static/js/main.2591f47c.chunk.js"
+    "revision": "09aec005266767fb0d3d",
+    "url": "/react-data-table/static/js/main.4d6cda05.chunk.js"
   },
   {
     "revision": "895926865f6869620105",
     "url": "/react-data-table/static/js/2.904a862c.chunk.js"
   },
   {
-    "revision": "718fc69b4f21b6ad066a",
+    "revision": "09aec005266767fb0d3d",
     "url": "/react-data-table/static/css/main.03ff9b0b.chunk.css"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/react-data-table/static/css/2.01e5f67d.chunk.css"
   },
   {
-    "revision": "3d8d3d7ed828e7886e44997c15036831",
+    "revision": "fc020b585ffb9ebd94c0f3810c655708",
     "url": "/react-data-table/index.html"
   }
 ];
